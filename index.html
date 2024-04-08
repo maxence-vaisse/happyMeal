@@ -1,12 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PlatePal - Accueil</title>
-        <link rel="icon" type="image/png" href="assets/images/logo-happy-meal.jfif" />
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Importation de Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>PlatePal - Accueil</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/logo-happy-meal.png" />
+</head>
+<body>
+    <header>
+        <nav class="red">
+            <div class="container nav-wrapper">
+                <a href="index.html" class="brand-logo">Platepal</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="recette.html">Recettes</a></li>
+                    <li><a href="ingredients.html">Ingrédients</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
         
-    </body>
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="recette.html">Recettes</a></li>
+            <li><a href="ingredients.html">Ingrédients</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </header>
+    <main>
+    </main>
+    <footer class="">
+        <p>© Copyight 2024</p>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="assets/js/menuburger.js"></script>
+</body>
 </html>
