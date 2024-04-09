@@ -1,4 +1,4 @@
-/* Style pour le pied de page */
+/* Style pour la page */
 html, body {
     height: 100%;
     margin: 0;
@@ -35,4 +35,11 @@ main {
 
 .icon-text-section {
     margin-top: 100px; /* Ajoute de l'espace au-dessus du div */
+}
+
+/* Styles pour les écrans de 425px ou moins */
+@media (max-width: 425px) {
+    .icon-text-group {
+        flex-direction: column; /* Dispose les éléments l'un en dessous de l'autre */
+    }
 }
