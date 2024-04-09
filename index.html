@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,33 +10,52 @@
     <title>PlatePal - Accueil</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/logo-happy-meal.png" />
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <header>
-        <nav class="red">
-            <div class="container nav-wrapper">
-                <a href="index.html" class="brand-logo">Platepal</a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="index.html">Accueil</a></li>
-                    <li><a href="recette.html">Recettes</a></li>
-                    <li><a href="ingredients.html">Ingrédients</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
+<body class="amber lighten-4">
+        <header>
+            <nav class="red">
+                <div class="container nav-wrapper">
+                    <a href="index.html" class="brand-logo">Platepal</a>
+                    <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                    <ul class="right hide-on-med-and-down">
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="recette.html">Recettes</a></li>
+                        <li><a href="ingredients.html">Ingrédients</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+            
+            <ul class="sidenav" id="mobile-demo">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="recette.html">Recettes</a></li>
+                <li><a href="ingredients.html">Ingrédients</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </header>
+    <main class="content-wrap container-fluid">
+        <div class="row">
+            <div class="col s12">
+                <h1 class="red-text text-red center-align">PlatePal</h1>
+                <p>Bienvenue sur notre site dédié à l'art culinaire et à la découverte de saveurs exquises ! Que vous soyez un passionné de cuisine chevronné ou un amateur curieux en quête de nouvelles recettes, vous trouverez ici une multitude d'idées alléchantes pour éveiller vos papilles et ravir vos convives. Des recettes traditionnelles aux créations innovantes, notre plateforme regorge de suggestions savoureuses pour toutes les occasions et tous les palais. Préparez-vous à embarquer pour un voyage gustatif plein de surprises et de délices, où chaque plat raconte une histoire et chaque bouchée éveille une nouvelle sensation.</p>
             </div>
-        </nav>
-        
-        <ul class="sidenav" id="mobile-demo">
-            <li><a href="index.html">Accueil</a></li>
-            <li><a href="recette.html">Recettes</a></li>
-            <li><a href="ingredients.html">Ingrédients</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-    </header>
-    <main>
+        </div>
+        <div class="center-align">
+            <img src="assets/images/icone-recette.png" alt="Icone recette">
+            <p>Découvrez un ensemble de recette de cuisine</p>
+        </div>
+        <div class="center-align">
+            <img src="assets/images/icone-liste.png" alt="Icone liste">
+            <p>Créez votre liste de courses</p>
+        </div>
+        <div class="center-align">
+            <img src="assets/images/icone-planning.png" alt="Icone planning">
+            <p>Plannifiez vos repas</p>
+        </div>
     </main>
-    <footer class="card-panel green darken-4">
-        <p>© Copyight 2024</p>
+    <footer class="card-panel green darken-4 full-width">
+        <p class="white-text text-white center-align">© Copyight 2024</p>
     </footer>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/menuburger.js"></script>

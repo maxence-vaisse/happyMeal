@@ -1,0 +1,17 @@
+/* Style pour le pied de page */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.page-container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.content-wrap {
+    flex: 1;
+}
+/* Style pour l'élément <main> */
+main {
+    min-height: 100vh; /* Assure que le main prend toute la hauteur de la page */
+}
