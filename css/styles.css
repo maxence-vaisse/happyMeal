@@ -21,6 +21,11 @@ main {
     text-align: center; /* Centre le texte */
 }
 
+.icon-text-container img {
+    width: 100px; /* Largeur de l'icône */
+    height: 100px; /* Hauteur de l'icône */
+}
+
 .icon-text-group {
     display: flex;
     justify-content: space-around; /* Distribue l'espace entre les éléments enfants */
