@@ -9,7 +9,7 @@ h4 {
 .vr{ 
     margin: 0;
     border:         none;
-    border-left:    5px solid red;
+    border-left:    2px solid black;
     height:         20px;
     width:          1px;       
 }
