@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const recipesPerPage = 9;
     let recipesData;
 
-    fetch('data.json')
+    fetch('assets/data/data.json')
         .then(response => response.json())
         .then(data => {
             recipesData = data.recettes;

@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Charger les recettes depuis le fichier JSON
-    fetch('data.json')
+    fetch('assets/data/data.json')
         .then(response => response.json())
         .then(data => {
             data.recettes.forEach(recette => {
