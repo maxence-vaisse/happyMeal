@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const cardSection = document.getElementById('cards-section');
         cardSection.innerHTML = '';
 
-        recipesToShow.forEach(recette => {
+        recipesToShow.forEach((recette, index) => {
             const cardHtml = `
                 <div class="col s12 m4">
                     <div class="card">
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </ol>
                         </div>
                         <div class="favorite-button" style="cursor: pointer;">
-                            <i class="material-icons left-align" style="margin-left: 20px;">star_border</i>
+                            <i class="material-icons left-align ${recette.isFavorite ? 'yellow-text' : ''}" data-index="${startIndex + index}" style="margin-left: 20px;">${recette.isFavorite ? 'star' : 'star_border'}</i>
                         </div>
                     </div>
                 </div>`;
@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         renderPagination(page);
+        addFavoriteListeners();
     }
 
     function renderPagination(currentPage) {
@@ -73,5 +74,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 renderRecipes(currentPage);
             });
         }
+    }
+
+    function addFavoriteListeners() {
+        const favoriteButtons = document.querySelectorAll('.favorite-button');
+        favoriteButtons.forEach(button => {
+            const star = button.querySelector('.material-icons');
+            button.addEventListener('click', function(event) {
+                const index = event.target.getAttribute('data-index');
+                recipesData[index].isFavorite = !recipesData[index].isFavorite;
+                if (recipesData[index].isFavorite) {
+                    star.classList.add('yellow-text');
+                    star.textContent = 'star';
+                } else {
+                    star.classList.remove('yellow-text');
+                    star.textContent = 'star_border';
+                }
+            });
+        });
     }
 });
