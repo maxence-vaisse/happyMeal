@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="assets/styles/styles.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="red">
+            <div class="container nav-wrapper">
+                <a href="index.html" class="brand-logo">Platepal</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="index.html">Acceuil</a></li>
+                    <li><a href="recette.html">Recettes</a></li>
+                    <li><a href="ingredients.html">Ingrédients</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="index.html">Acceuil</a></li>
+            <li><a href="recette.html">Recettes</a></li>
+            <li><a href="ingredients.html">Ingrédients</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </header>
+
+    <main class="">
+        <h3>Liste de vos courses</h3>
+        <h4>Retrouvez ici la liste de tous vos ingrédients.</h4>
+
+        <section class="container ">
+            <div class="grey row valign-wrapper collection">
+                <span class="col ">X nb</span>
+                <hr class="vr col ">
+                <span class="col s6">nom de l'ingrédients</span>
+                <hr class="vr col">
+                <button class="green large collection-item">+</button>
+                <button class="red large collection-item ">-</button>
+            </div>
+        </section>     
+    </main>
+    <script src="assets/js/menuburger.js"></script>
+</body>
+</html>
