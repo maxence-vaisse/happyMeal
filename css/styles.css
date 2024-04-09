@@ -11,7 +11,23 @@ html, body {
 .content-wrap {
     flex: 1;
 }
+
 /* Style pour l'élément <main> */
 main {
     min-height: 100vh; /* Assure que le main prend toute la hauteur de la page */
+}
+
+.icon-text-container {
+    text-align: center; /* Centre le texte */
+}
+
+.icon-text-group {
+    display: flex;
+    justify-content: space-around; /* Distribue l'espace entre les éléments enfants */
+    flex-wrap: wrap; /* Permet aux éléments de se replier sur plusieurs lignes si nécessaire */
+    gap: 20px; /* Ajoute un espace entre les groupes d'icônes et de texte */
+}
+
+.icon-text-section {
+    margin-top: 100px; /* Ajoute de l'espace au-dessus du div */
 }
