@@ -78,19 +78,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addFavoriteListeners() {
         const favoriteButtons = document.querySelectorAll('.favorite-button');
+        const favoritesList = document.querySelector('.collection');
+    
         favoriteButtons.forEach(button => {
             const star = button.querySelector('.material-icons');
             button.addEventListener('click', function(event) {
                 const index = event.target.getAttribute('data-index');
-                recipesData[index].isFavorite = !recipesData[index].isFavorite;
-                if (recipesData[index].isFavorite) {
-                    star.classList.add('yellow-text');
-                    star.textContent = 'star';
-                } else {
+                const recipeName = recipesData[index].nom;
+    
+                // Si la recette est déjà dans les favoris, la retirer
+                const isAlreadyFavorite = favoritesList.querySelector(`li.collection-item[data-name="${recipeName}"]`);
+                if (isAlreadyFavorite) {
+                    favoritesList.removeChild(isAlreadyFavorite);
+    
+                    // Mettre à jour l'icône de l'étoile dans la carte de la recette
+                    recipesData[index].isFavorite = false;
                     star.classList.remove('yellow-text');
                     star.textContent = 'star_border';
+                    return;
                 }
+    
+                // Ajouter la recette aux favoris
+                recipesData[index].isFavorite = true;
+    
+                // Créer un élément li pour la recette
+                const li = document.createElement('li');
+                li.className = 'collection-item';
+                li.setAttribute('data-name', recipeName);
+                li.textContent = recipeName;
+    
+                // Ajouter la recette à la liste des favoris
+                favoritesList.appendChild(li);
+    
+                // Mettre à jour l'icône de l'étoile dans la carte de la recette
+                star.classList.add('yellow-text');
+                star.textContent = 'star';
             });
         });
     }
+    
+    
 });
