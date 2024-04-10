@@ -38,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <ul>
                             ${recette.ingredients.map(ingredient => `<li>${ingredient.nom} : ${ingredient.quantite}</li><a class="waves-effect waves-light btn-small red add-to-cart" data-name="${ingredient.nom}">Ajouter l'ingrédient au panier</a>`).join('')}
                             </ul>
+                            <p>Étapes : </p>
+                            <ol>
+                            ${recette.etapes.map(etape => `<li>${etape}</li>`).join('')}
+                            </ol>
                         </div>
                         <div class="favorite-button" style="cursor: pointer;">
                             <i class="material-icons left-align ${recette.isFavorite ? 'yellow-text' : ''}" data-index="${startIndex + index}" style="margin-left: 20px;">${recette.isFavorite ? 'star' : 'star_border'}</i>
