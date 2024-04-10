@@ -138,6 +138,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 ingredientItem.className = 'collection-item';
                 ingredientItem.setAttribute('data-name', ingredientName);
                 ingredientItem.textContent = ingredientName;
+
+                // Ajouter un bouton de suppression à l'ingrédient
+                const removeButton = document.createElement('button');
+                removeButton.className = 'remove-from-cart btn-small red right'; // Ajout de la classe 'right' pour aligner à droite
+                removeButton.textContent = 'X';
+                ingredientItem.appendChild(removeButton);
+
+                // Ajouter un gestionnaire d'événements pour supprimer l'ingrédient du panier
+                removeButton.addEventListener('click', function() {
+                    cartList.removeChild(ingredientItem);
+                });
+
                 cartList.appendChild(ingredientItem);
             });
         });
