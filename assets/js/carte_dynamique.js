@@ -1,5 +1,3 @@
-// JS pour recette.html
-
 document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     const recipesPerPage = 9;
@@ -123,8 +121,18 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function(event) {
                 const ingredientName = event.target.getAttribute('data-name');
                 const cartList = document.getElementById('cart-list');
+
+                // Vérifier si l'ingrédient est déjà dans la liste
+                const existingIngredient = cartList.querySelector(`li[data-name="${ingredientName}"]`);
+                if (existingIngredient) {
+                    alert("Cet ingrédient est déjà dans le panier !");
+                    return; // Sortir de la fonction si l'ingrédient est déjà dans la liste
+                }
+
+                // Ajouter l'ingrédient au panier
                 const ingredientItem = document.createElement('li');
                 ingredientItem.className = 'collection-item';
+                ingredientItem.setAttribute('data-name', ingredientName);
                 ingredientItem.textContent = ingredientName;
                 cartList.appendChild(ingredientItem);
             });
