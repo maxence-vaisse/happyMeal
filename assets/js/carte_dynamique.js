@@ -1,3 +1,5 @@
+// JS pour recette.html
+
 document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     const recipesPerPage = 9;
@@ -36,12 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p>Temps de préparation : ${recette.temps_preparation}</p>
                             <p>Ingrédients : </p>
                             <ul>
-                            ${recette.ingredients.map(ingredient => `<li>${ingredient.nom} : ${ingredient.quantite}</li><a class="waves-effect waves-light btn-small red">Ajouter l'ingrédient au panier</a>`).join('')}
+                            ${recette.ingredients.map(ingredient => `<li>${ingredient.nom} : ${ingredient.quantite}</li><a class="waves-effect waves-light btn-small red add-to-cart" data-name="${ingredient.nom}">Ajouter l'ingrédient au panier</a>`).join('')}
                             </ul>
-                            <p>Étapes : </p>
-                            <ol>
-                            ${recette.etapes.map(etape => `<li>${etape}</li>`).join('')}
-                            </ol>
                         </div>
                         <div class="favorite-button" style="cursor: pointer;">
                             <i class="material-icons left-align ${recette.isFavorite ? 'yellow-text' : ''}" data-index="${startIndex + index}" style="margin-left: 20px;">${recette.isFavorite ? 'star' : 'star_border'}</i>
@@ -53,6 +51,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderPagination(page);
         addFavoriteListeners();
+        addIngredientToCartListeners();
     }
 
     function renderPagination(currentPage) {
@@ -116,6 +115,19 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
-    
-    
+
+    function addIngredientToCartListeners() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const ingredientName = event.target.getAttribute('data-name');
+                const cartList = document.getElementById('cart-list');
+                const ingredientItem = document.createElement('li');
+                ingredientItem.className = 'collection-item';
+                ingredientItem.textContent = ingredientName;
+                cartList.appendChild(ingredientItem);
+            });
+        });
+    }
 });
