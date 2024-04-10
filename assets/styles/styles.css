@@ -1,0 +1,15 @@
+h3 {
+    text-align: center;
+}
+
+h4 {
+    text-align: center;
+}
+
+.vr{ 
+    margin: 0;
+    border:         none;
+    border-left:    5px solid red;
+    height:         20px;
+    width:          1px;       
+}
