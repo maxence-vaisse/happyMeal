@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     const recipesPerPage = 9;
     let recipesData;
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
     // Charger les recettes depuis le fichier JSON
     fetch('data.json')
@@ -11,6 +12,48 @@ document.addEventListener('DOMContentLoaded', function() {
             renderRecipes(currentPage);
         })
         .catch(error => console.error('Une erreur s\'est produite lors du chargement des recettes :', error));
+
+    // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+    function updateFavoriteList() {
+        const favoritesList = document.querySelector('.collection.with-header');
+        favoritesList.innerHTML = ''; // Effacez d'abord la liste pour éviter les doublons
+
+        favoriteRecipes.forEach(recipe => {
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            li.textContent = recipe.nom;
+            favoritesList.appendChild(li);
+        });
+    }
+
+    // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+    function toggleFavorite(index) {
+        const recipe = recipesData[index];
+        recipe.isFavorite = !recipe.isFavorite;
+
+        if (recipe.isFavorite) {
+            favoriteRecipes.push(recipe);
+        } else {
+            const indexToRemove = favoriteRecipes.findIndex(favRecipe => favRecipe.id === recipe.id);
+            if (indexToRemove !== -1) {
+                favoriteRecipes.splice(indexToRemove, 1);
+            }
+        }
+
+        localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+
+        const star = document.querySelector(`.favorite-button i[data-index="${index}"]`);
+        if (recipe.isFavorite) {
+            star.classList.add('yellow-text');
+            star.textContent = 'star';
+        } else {
+            star.classList.remove('yellow-text');
+            star.textContent = 'star_border';
+        }
+
+        // Mettez à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+        updateFavoriteList();
+    }
 
     function renderRecipes(page) {
         const startIndex = (page - 1) * recipesPerPage;
@@ -53,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderPagination(page);
         addFavoriteListeners();
-        addIngredientToCartListeners();
     }
 
     function renderPagination(currentPage) {
@@ -79,78 +121,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function addFavoriteListeners() {
         const favoriteButtons = document.querySelectorAll('.favorite-button');
-        const favoritesList = document.querySelector('.collection');
-    
         favoriteButtons.forEach(button => {
-            const star = button.querySelector('.material-icons');
             button.addEventListener('click', function(event) {
                 const index = event.target.getAttribute('data-index');
-                const recipeName = recipesData[index].nom;
-    
-                // Si la recette est déjà dans les favoris, la retirer
-                const isAlreadyFavorite = favoritesList.querySelector(`li.collection-item[data-name="${recipeName}"]`);
-                if (isAlreadyFavorite) {
-                    favoritesList.removeChild(isAlreadyFavorite);
-    
-                    // Mettre à jour l'icône de l'étoile dans la carte de la recette
-                    recipesData[index].isFavorite = false;
-                    star.classList.remove('yellow-text');
-                    star.textContent = 'star_border';
-                    return;
-                }
-    
-                // Ajouter la recette aux favoris
-                recipesData[index].isFavorite = true;
-    
-                // Créer un élément li pour la recette
-                const li = document.createElement('li');
-                li.className = 'collection-item';
-                li.setAttribute('data-name', recipeName);
-                li.textContent = recipeName;
-    
-                // Ajouter la recette à la liste des favoris
-                favoritesList.appendChild(li);
-    
-                // Mettre à jour l'icône de l'étoile dans la carte de la recette
-                star.classList.add('yellow-text');
-                star.textContent = 'star';
-            });
-        });
-    }
-
-    function addIngredientToCartListeners() {
-        const addToCartButtons = document.querySelectorAll('.add-to-cart');
-
-        addToCartButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                const ingredientName = event.target.getAttribute('data-name');
-                const cartList = document.getElementById('cart-list');
-
-                // Vérifier si l'ingrédient est déjà dans la liste
-                const existingIngredient = cartList.querySelector(`li[data-name="${ingredientName}"]`);
-                if (existingIngredient) {
-                    alert("Cet ingrédient est déjà dans le panier !");
-                    return; // Sortir de la fonction si l'ingrédient est déjà dans la liste
-                }
-
-                // Ajouter l'ingrédient au panier
-                const ingredientItem = document.createElement('li');
-                ingredientItem.className = 'collection-item';
-                ingredientItem.setAttribute('data-name', ingredientName);
-                ingredientItem.textContent = ingredientName;
-
-                // Ajouter un bouton de suppression à l'ingrédient
-                const removeButton = document.createElement('button');
-                removeButton.className = 'remove-from-cart btn-small red right'; // Ajout de la classe 'right' pour aligner à droite
-                removeButton.textContent = 'X';
-                ingredientItem.appendChild(removeButton);
-
-                // Ajouter un gestionnaire d'événements pour supprimer l'ingrédient du panier
-                removeButton.addEventListener('click', function() {
-                    cartList.removeChild(ingredientItem);
-                });
-
-                cartList.appendChild(ingredientItem);
+                toggleFavorite(index);
             });
         });
     }
