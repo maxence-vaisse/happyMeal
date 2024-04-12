@@ -144,6 +144,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 ingredientItem.className = 'collection-item';
                 ingredientItem.textContent = ingredientName;
 
+                // Créer un bouton pour supprimer l'ingrédient du panier
+                const deleteButton = document.createElement('a');
+                deleteButton.textContent = 'x';
+                deleteButton.className = 'waves-effect waves-light btn red btn-delete right';
+                deleteButton.addEventListener('click', function() {
+                    cartList.removeChild(ingredientItem); // Supprimer l'ingrédient de la liste du panier
+                });
+
+                // Ajouter le bouton de suppression à l'élément d'ingrédient
+                ingredientItem.appendChild(deleteButton);
+
                 // Ajouter l'ingrédient à la liste des ingrédients du panier
                 cartList.appendChild(ingredientItem);
             });
