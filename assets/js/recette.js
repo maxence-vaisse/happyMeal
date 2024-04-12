@@ -18,12 +18,24 @@ document.addEventListener('DOMContentLoaded', function() {
         const favoritesList = document.querySelector('.collection.with-header');
         favoritesList.innerHTML = ''; // Effacez d'abord la liste pour éviter les doublons
 
-        favoriteRecipes.forEach(recipe => {
-            const li = document.createElement('li');
-            li.className = 'collection-item';
-            li.textContent = recipe.nom;
-            favoritesList.appendChild(li);
-        });
+        if (favoriteRecipes.length > 0) {
+            const header = document.createElement('li');
+            header.className = 'collection-header';
+            header.innerHTML = '<h4>Vos recettes favorites</h4>';
+            favoritesList.appendChild(header);
+
+            favoriteRecipes.forEach(recipe => {
+                const li = document.createElement('li');
+                li.className = 'collection-item';
+                li.textContent = recipe.nom;
+                favoritesList.appendChild(li);
+            });
+        } else {
+            const header = document.createElement('li');
+            header.className = 'collection-header';
+            header.innerHTML = '<h4>Vos recettes favorites</h4>';
+            favoritesList.appendChild(header);
+        }
     }
 
     // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
