@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentPage = 1;
     const recipesPerPage = 9;
     let recipesData;
+    let favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
 
     // Charger les recettes depuis le fichier JSON
     fetch('data.json')
@@ -11,6 +12,48 @@ document.addEventListener('DOMContentLoaded', function() {
             renderRecipes(currentPage);
         })
         .catch(error => console.error('Une erreur s\'est produite lors du chargement des recettes :', error));
+
+    // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+    function updateFavoriteList() {
+        const favoritesList = document.querySelector('.collection.with-header');
+        favoritesList.innerHTML = ''; // Effacez d'abord la liste pour éviter les doublons
+
+        favoriteRecipes.forEach(recipe => {
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            li.textContent = recipe.nom;
+            favoritesList.appendChild(li);
+        });
+    }
+
+    // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+    function toggleFavorite(index) {
+        const recipe = recipesData[index];
+        recipe.isFavorite = !recipe.isFavorite;
+
+        if (recipe.isFavorite) {
+            favoriteRecipes.push(recipe);
+        } else {
+            const indexToRemove = favoriteRecipes.findIndex(favRecipe => favRecipe.id === recipe.id);
+            if (indexToRemove !== -1) {
+                favoriteRecipes.splice(indexToRemove, 1);
+            }
+        }
+
+        localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+
+        const star = document.querySelector(`.favorite-button i[data-index="${index}"]`);
+        if (recipe.isFavorite) {
+            star.classList.add('yellow-text');
+            star.textContent = 'star';
+        } else {
+            star.classList.remove('yellow-text');
+            star.textContent = 'star_border';
+        }
+
+        // Mettez à jour la liste des recettes favorites dans la section "Vos recettes favorites"
+        updateFavoriteList();
+    }
 
     function renderRecipes(page) {
         const startIndex = (page - 1) * recipesPerPage;
@@ -36,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <p>Temps de préparation : ${recette.temps_preparation}</p>
                             <p>Ingrédients : </p>
                             <ul>
-                            ${recette.ingredients.map(ingredient => `<li>${ingredient.nom} : ${ingredient.quantite}</li><a class="waves-effect waves-light btn-small red">Ajouter l'ingrédient au panier</a>`).join('')}
+                            ${recette.ingredients.map(ingredient => `<li>${ingredient.nom} : ${ingredient.quantite}</li><a class="waves-effect waves-light btn-small red add-to-cart" data-name="${ingredient.nom}">Ajouter l'ingrédient au panier</a>`).join('')}
                             </ul>
                             <p>Étapes : </p>
                             <ol>
@@ -53,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderPagination(page);
         addFavoriteListeners();
+        addIngredientToCartListeners(); // Ajout de la fonction pour écouter les clics sur "Ajouter l'ingrédient au panier"
     }
 
     function renderPagination(currentPage) {
@@ -79,17 +123,29 @@ document.addEventListener('DOMContentLoaded', function() {
     function addFavoriteListeners() {
         const favoriteButtons = document.querySelectorAll('.favorite-button');
         favoriteButtons.forEach(button => {
-            const star = button.querySelector('.material-icons');
             button.addEventListener('click', function(event) {
                 const index = event.target.getAttribute('data-index');
-                recipesData[index].isFavorite = !recipesData[index].isFavorite;
-                if (recipesData[index].isFavorite) {
-                    star.classList.add('yellow-text');
-                    star.textContent = 'star';
-                } else {
-                    star.classList.remove('yellow-text');
-                    star.textContent = 'star_border';
-                }
+                toggleFavorite(index);
+            });
+        });
+    }
+
+    // Fonction pour ajouter des écouteurs d'événements pour chaque bouton "Ajouter l'ingrédient au panier"
+    function addIngredientToCartListeners() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const ingredientName = event.target.getAttribute('data-name');
+                const cartList = document.getElementById('cart-list');
+
+                // Créer un élément li pour l'ingrédient
+                const ingredientItem = document.createElement('li');
+                ingredientItem.className = 'collection-item';
+                ingredientItem.textContent = ingredientName;
+
+                // Ajouter l'ingrédient à la liste des ingrédients du panier
+                cartList.appendChild(ingredientItem);
             });
         });
     }
