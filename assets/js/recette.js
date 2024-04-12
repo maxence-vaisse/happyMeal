@@ -18,24 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const favoritesList = document.querySelector('.collection.with-header');
         favoritesList.innerHTML = ''; // Effacez d'abord la liste pour éviter les doublons
 
-        if (favoriteRecipes.length > 0) {
-            const header = document.createElement('li');
-            header.className = 'collection-header';
-            header.innerHTML = '<h4>Vos recettes favorites</h4>';
-            favoritesList.appendChild(header);
-
-            favoriteRecipes.forEach(recipe => {
-                const li = document.createElement('li');
-                li.className = 'collection-item';
-                li.textContent = recipe.nom;
-                favoritesList.appendChild(li);
-            });
-        } else {
-            const header = document.createElement('li');
-            header.className = 'collection-header';
-            header.innerHTML = '<h4>Vos recettes favorites</h4>';
-            favoritesList.appendChild(header);
-        }
+        favoriteRecipes.forEach(recipe => {
+            const li = document.createElement('li');
+            li.className = 'collection-item';
+            li.textContent = recipe.nom;
+            favoritesList.appendChild(li);
+        });
     }
 
     // Ajoutez cette fonction pour mettre à jour la liste des recettes favorites dans la section "Vos recettes favorites"
@@ -108,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         renderPagination(page);
         addFavoriteListeners();
+        addIngredientToCartListeners(); // Ajout de la fonction pour écouter les clics sur "Ajouter l'ingrédient au panier"
     }
 
     function renderPagination(currentPage) {
@@ -137,6 +126,26 @@ document.addEventListener('DOMContentLoaded', function() {
             button.addEventListener('click', function(event) {
                 const index = event.target.getAttribute('data-index');
                 toggleFavorite(index);
+            });
+        });
+    }
+
+    // Fonction pour ajouter des écouteurs d'événements pour chaque bouton "Ajouter l'ingrédient au panier"
+    function addIngredientToCartListeners() {
+        const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+        addToCartButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const ingredientName = event.target.getAttribute('data-name');
+                const cartList = document.getElementById('cart-list');
+
+                // Créer un élément li pour l'ingrédient
+                const ingredientItem = document.createElement('li');
+                ingredientItem.className = 'collection-item';
+                ingredientItem.textContent = ingredientName;
+
+                // Ajouter l'ingrédient à la liste des ingrédients du panier
+                cartList.appendChild(ingredientItem);
             });
         });
     }
