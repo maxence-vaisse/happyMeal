@@ -160,4 +160,41 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Ajouter un gestionnaire d'événement pour le téléchargement du panier
+    document.getElementById('download-cart').addEventListener('click', function() {
+        downloadFile('panier.txt', generateCart());
+    });
+
+    // Fonction pour générer le contenu de la liste de courses
+    function generateListeCourses() {
+        const cartList = document.getElementById('cart-list');
+        let listeCourses = '';
+
+        // Parcourir tous les éléments de la liste du panier
+        cartList.querySelectorAll('.collection-item').forEach(item => {
+            // Exclure le bouton de suppression du contenu à ajouter à la liste de courses
+            const itemText = item.textContent.trim();
+            const itemContent = itemText.substring(0, itemText.length - 1); // Supprimer le dernier caractère (la croix)
+            listeCourses += itemContent + '\n';
+        });
+
+        return listeCourses;
+    }
+
+    // Fonction pour générer le contenu du panier
+    function generateCart() {
+        return generateListeCourses();
+    }
+
+    // Fonction pour télécharger un fichier
+    function downloadFile(filename, content) {
+        const element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
+        element.setAttribute('download', filename);
+        element.style.display = 'none';
+        document.body.appendChild(element);
+        element.click();
+        document.body.removeChild(element);
+    }
 });
