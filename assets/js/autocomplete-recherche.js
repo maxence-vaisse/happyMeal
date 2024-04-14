@@ -9,27 +9,37 @@ const recipes = [
     "Salade de fruits frais",
     "Ratatouille provençale",
     "Salade César",
+    "Risotto aux champignons",
     "Muffins aux myrtilles",
     "Lasagnes végétariennes",
     "Salade niçoise",
     "Tiramisu"
-  ];
+];
   
-  const searchInput = document.getElementById('search-input');
-  const searchResults = document.getElementById('search-results');
+const searchInput = document.getElementById('search-input');
+const searchResults = document.getElementById('search-results');
   
-  searchInput.addEventListener('input', function() {
+searchInput.addEventListener('input', function() {
     const query = this.value.toLowerCase();
+    if (query === '') {
+        // Si la recherche est vide, alors la liste de résultats est vidée.
+        searchResults.innerHTML = '';
+        return;
+    }
     const matchedRecipes = recipes.filter(recipe => recipe.toLowerCase().includes(query));
     displayResults(matchedRecipes);
-  });
+});
   
-  function displayResults(results) {
+function displayResults(results) {
     searchResults.innerHTML = '';
     results.forEach(result => {
-      const li = document.createElement('li');
-      li.textContent = result;
-      searchResults.appendChild(li);
+        const li = document.createElement('li');
+        li.textContent = result;
+        // Ajout de l'évènement de clic pour rediriger vers "recette.html"
+        li.addEventListener('click', function() {
+            window.location.href = 'recette.html?recipe=' + encodeURIComponent(result);
+        });
+        searchResults.appendChild(li);
     });
-  }
+}
   
