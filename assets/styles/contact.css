@@ -1,0 +1,26 @@
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: auto;
+}
+
+
+.select-wrapper{
+    width: 100%;
+}
+@media screen and (max-width: 480px) {
+    form {
+        width: 100%;
+    }
+}
+
